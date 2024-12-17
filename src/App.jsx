@@ -66,7 +66,7 @@ const App = () => {
       <h1 className="text-4xl font-bold text-center mb-5">Weather Dashboard</h1>
       <input
         type="text"
-        placeholder="Cari kota..."
+        placeholder="Cari kota... (Jakarta, Tokyo, London)"
         className="p-3 w-full max-w-md mb-5 rounded-md text-gray-200"
         onChange={(e) => setCity(e.target.value)}
       />

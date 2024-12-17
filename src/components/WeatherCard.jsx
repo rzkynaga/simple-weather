@@ -13,13 +13,7 @@ const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
   const humidity = current?.humidity ?? 'N/A';
   const windSpeed = current?.windSpeed ?? 'N/A';
   const aqiLevel = getAQILevel(aqi);
-const saveFavoriteCity = (cityName) => {
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  if (!favorites.includes(cityName)) {
-    favorites.push(cityName);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }
-};
+  const precipitation = current?.rain?.['1h'] ?? 'N/A';
 
   return (
     <div className="w-full max-w-lg bg-gray-900 p-6 rounded-lg shadow-2xl text-gray-100">
@@ -39,6 +33,10 @@ const saveFavoriteCity = (cityName) => {
         <div className="bg-gray-800 p-4 rounded-lg shadow-md">
           <p className="text-xl font-medium">Kecepatan Angin: {windSpeed} m/s</p>
         </div>
+        <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <p className="text-xl font-medium">Curah Hujan: {precipitation} mm</p>
+        </div>
+
       </div>
 
       {/* Kualitas Udara */}
@@ -46,13 +44,12 @@ const saveFavoriteCity = (cityName) => {
         <p className="text-xl">
           Kualitas Udara:{' '}
           <span
-            className={`font-semibold ${
-              aqiLevel === 'Good'
-                ? 'text-green-500'
-                : aqiLevel === 'Very Poor'
+            className={`font-semibold ${aqiLevel === 'Good'
+              ? 'text-green-500'
+              : aqiLevel === 'Very Poor'
                 ? 'text-red-500'
                 : 'text-yellow-500'
-            }`}
+              }`}
           >
             {aqiLevel}
           </span>
