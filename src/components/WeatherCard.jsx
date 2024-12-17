@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WeatherCard = ({ city = 'Unknown', current = {}, daily = [], aqi = null }) => {
+const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
   // Fungsi untuk menentukan level AQI
   const getAQILevel = (aqi) => {
     if (!aqi?.list || !aqi.list[0]?.main?.aqi) return 'Unknown';
@@ -11,40 +11,53 @@ const WeatherCard = ({ city = 'Unknown', current = {}, daily = [], aqi = null })
   // Menangani data kosong agar tidak error
   const temperature = current?.temp ?? 'N/A';
   const humidity = current?.humidity ?? 'N/A';
-  const windSpeed = current?.wind_speed ?? 'N/A';
+  const windSpeed = current?.windSpeed ?? 'N/A';
   const aqiLevel = getAQILevel(aqi);
+const saveFavoriteCity = (cityName) => {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  if (!favorites.includes(cityName)) {
+    favorites.push(cityName);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }
+};
 
   return (
-    <div className="w-full max-w-md bg-gray-800 p-5 rounded-lg shadow-lg text-gray-100">
-      <h2 className="text-2xl font-semibold text-center mb-4">
-        Cuaca di {city}
+    <div className="w-full max-w-lg bg-gray-900 p-6 rounded-lg shadow-2xl text-gray-100">
+      {/* Judul Cuaca */}
+      <h2 className="text-3xl font-semibold text-center mb-6">
+        Cuaca di <span className="text-blue-400">{city}</span>
       </h2>
 
       {/* Informasi Cuaca Sekarang */}
-      <div className="flex justify-between text-sm mb-2">
-        <p>Suhu: {temperature}°C</p>
-        <p>Kelembapan: {humidity}%</p>
-        <p>Angin: {windSpeed} m/s</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+        <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <p className="text-xl font-medium">Suhu: {temperature}°C</p>
+        </div>
+        <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <p className="text-xl font-medium">Kelembapan: {humidity}%</p>
+        </div>
+        <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <p className="text-xl font-medium">Kecepatan Angin: {windSpeed} m/s</p>
+        </div>
       </div>
-      <p className="mt-2">Kualitas Udara: {aqiLevel}</p>
 
-      {/* Prakiraan 7 Hari */}
-      <h3 className="text-xl font-semibold mt-4 mb-2">Prakiraan Cuaca 7 Hari</h3>
-      {daily.length > 0 ? (
-        <ul>
-          {daily.map((day, index) => (
-            <li
-              key={index}
-              className="flex justify-between p-2 bg-gray-700 rounded mb-1"
-            >
-              <span>Hari {index + 1}</span>
-              <span>{day?.temp?.day ?? 'N/A'}°C</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center text-gray-400">Tidak ada data prakiraan.</p>
-      )}
+      {/* Kualitas Udara */}
+      <div className="mb-4 text-center">
+        <p className="text-xl">
+          Kualitas Udara:{' '}
+          <span
+            className={`font-semibold ${
+              aqiLevel === 'Good'
+                ? 'text-green-500'
+                : aqiLevel === 'Very Poor'
+                ? 'text-red-500'
+                : 'text-yellow-500'
+            }`}
+          >
+            {aqiLevel}
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

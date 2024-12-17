@@ -11,23 +11,44 @@ const App = () => {
 
   const fetchWeatherData = async () => {
     try {
-      // Fetch Current Weather and Forecast based on city name (need geolocation)
+      // Fetch Current Weather
       const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
       );
 
+      if (!weatherResponse.ok) {
+        throw new Error('Gagal mengambil data cuaca. Pastikan nama kota benar.');
+      }
+
       const weatherJson = await weatherResponse.json();
-      setWeatherData(weatherJson);
+      console.log(weatherJson); // Debugging respons
 
-      // Fetch AQI (Air Quality Index) based on city name
-      const aqiResponse = await fetch(
-        `http://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherJson.coord.lat}&lon=${weatherJson.coord.lon}&appid=${API_KEY}`
-      );
+      setWeatherData({
+        temp: weatherJson.main.temp,
+        humidity: weatherJson.main.humidity,
+        windSpeed: weatherJson.wind.speed, // Ambil kecepatan angin
+        weather: weatherJson.weather,
+      });
 
-      const aqiJson = await aqiResponse.json();
-      setAqiData(aqiJson);
+      // Fetch AQI jika koordinat tersedia
+      if (weatherJson.coord) {
+        const aqiResponse = await fetch(
+          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherJson.coord.lat}&lon=${weatherJson.coord.lon}&appid=${API_KEY}`
+        );
+
+        if (!aqiResponse.ok) {
+          throw new Error('Gagal mengambil data kualitas udara.');
+        }
+
+        const aqiJson = await aqiResponse.json();
+        setAqiData(aqiJson);
+      }
+
+      setError(null); // Reset error jika sukses
     } catch (err) {
-      setError('Gagal mengambil data cuaca. Coba lagi.');
+      setError(err.message); // Set pesan error
+      setWeatherData(null); // Reset data agar UI tidak crash
+      setAqiData(null);
     }
   };
 
@@ -35,11 +56,11 @@ const App = () => {
     if (city) {
       fetchWeatherData();
     }
-  }, [city]); // Menambahkan 'city' sebagai dependensi
+  }, [city]);
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-blue-800 to-gray-900 text-white
+      className="min-h-screen w-screen bg-gradient-to-br from-blue-800 to-gray-900 text-white
       flex flex-col items-center justify-center p-12"
     >
       <h1 className="text-4xl font-bold text-center mb-5">Weather Dashboard</h1>
@@ -55,8 +76,7 @@ const App = () => {
       {weatherData && (
         <WeatherCard
           city={city}
-          current={weatherData.main}
-          daily={weatherData.weather} // Sesuaikan dengan data cuaca harian
+          current={weatherData} // Kirim semua data ke WeatherCard
           aqi={aqiData}
         />
       )}
