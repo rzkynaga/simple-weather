@@ -1,4 +1,8 @@
-# React + Vite
+# Simple Weather Dashboard
+
+### Screenshot
+![Screenshot 2024-12-17 161152](https://github.com/user-attachments/assets/5502bf48-bf85-4a41-b1fa-792361a96abc)
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
