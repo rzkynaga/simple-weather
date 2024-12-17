@@ -3,7 +3,6 @@
 ### Screenshot
 ![Screenshot 2024-12-17 161152](https://github.com/user-attachments/assets/5502bf48-bf85-4a41-b1fa-792361a96abc)
 
-
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
@@ -11,17 +10,14 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# Weather Dashboard
-
-Weather Dashboard is a React-based weather application that allows users to view current weather information and forecasts for the upcoming days. This application uses the OpenWeatherMap API to display data such as the weather conditions, air quality (AQI), temperature, humidity, wind speed, and rainfall. The app also provides features to search for a city, select temperature units (Celsius/Fahrenheit), save favorite cities, and supports two languages (Indonesian and English).
+# Overview
+Weather Dashboard is a React-based weather application that allows users to view current weather information and forecasts for the upcoming days. This application uses the OpenWeatherMap API to display data such as the weather conditions, air quality (AQI), temperature, humidity, wind speed, and rainfall. The app also provides features to search for a city, select temperature units (Celsius/Fahrenheit), and save favorite cities.
 
 ## Key Features
 - **City Search**: Enter a city name to see the current weather and forecast.
 - **Temperature Units**: Choose between Celsius and Fahrenheit for temperature display.
-- **7-Day Weather Forecast**: View the daily weather forecast for the next 7 days.
 - **Air Quality (AQI)**: Displays the air quality index based on the city.
 - **Rainfall**: Shows rainfall data for the last 1 hour.
-- **Language Support**: Choose between Indonesian and English for the interface.
 - **Favorite Cities**: Save favorite cities for easy access.
 - **Responsive Design**: The app is accessible and user-friendly on both desktop and mobile devices.
 
@@ -38,9 +34,9 @@ Make sure you have the latest version of Node.js and npm (Node Package Manager) 
 ## How to Use
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/weather-dashboard.git
-   ```
+```bash
+git clone https://github.com/username/weather-dashboard.git
+```
 
 2. Navigate to the project directory:
   ```bash
