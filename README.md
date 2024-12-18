@@ -1,74 +1,64 @@
 # Simple Weather Dashboard
 
-### Screenshot
-![Screenshot 2024-12-17 161152](https://github.com/user-attachments/assets/5502bf48-bf85-4a41-b1fa-792361a96abc)
+This project displays the current weather information of a specific city using OpenWeather API and includes a weather widget for better visualization. The app uses React to render weather data such as temperature, humidity, wind speed, precipitation, and air quality index (AQI).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-# Overview
-Weather Dashboard is a React-based weather application that allows users to view current weather information and forecasts for the upcoming days. This application uses the OpenWeatherMap API to display data such as the weather conditions, air quality (AQI), temperature, humidity, wind speed, and rainfall. The app also provides features to search for a city, select temperature units (Celsius/Fahrenheit), and save favorite cities.
-
-## Key Features
-- **City Search**: Enter a city name to see the current weather and forecast.
-- **Temperature Units**: Choose between Celsius and Fahrenheit for temperature display.
-- **Air Quality (AQI)**: Displays the air quality index based on the city.
-- **Rainfall**: Shows rainfall data for the last 1 hour.
-- **Favorite Cities**: Save favorite cities for easy access.
-- **Responsive Design**: The app is accessible and user-friendly on both desktop and mobile devices.
+- Displays weather information for a specific city.
+- Shows temperature, humidity, wind speed, precipitation, and AQI.
+- Integrates OpenWeather widget to provide a live weather forecast.
+- Fully responsive design with Tailwind CSS.
+- AQI levels are dynamically colored based on the air quality.
 
 ## Technologies Used
-- React
-- OpenWeatherMap API
-- Tailwind CSS
-- React Hooks
-- JavaScript
 
-## Requirements
-Make sure you have the latest version of Node.js and npm (Node Package Manager) installed on your system.
+- **React**: Front-end framework to build the app.
+- **OpenWeather API**: Provides weather data (temperature, humidity, wind speed, etc.).
+- **Tailwind CSS**: Utility-first CSS framework for styling the app.
+- **OpenWeather Widget**: Displays an interactive weather widget for the selected city.
 
-## How to Use
+## Screenshot
+![Screenshot 2024-12-18 102917](https://github.com/user-attachments/assets/4f5158ae-3255-4316-a42a-ee93d6bb4822)
 
-1. Clone the repository:
+## Setup
+Follow the steps below to set up the project on your local machine:
+
+### 1. Clone the repository
 ```bash
-git clone https://github.com/username/weather-dashboard.git
+git clone https://github.com/your-username/weather-card-react.git
+cd weather-card-react
+```
+### 2. Install dependencies
+Make sure you have Node.js installed. Then, run the following command to install the required dependencies:
+```bash
+npm install
+```
+### 3. Configure OpenWeather API key
+To get the weather data, you need a valid API key from OpenWeather. You can get your API key by signing up at OpenWeather.
+
+After obtaining your API key, replace the appid in the script within the WeatherCard.js file or store it in an environment variable:
+```bash
+appid: 'YOUR_API_KEY_HERE',
+```
+### 4. Run the app
+Now that everything is set up, run the development server:
+```bash
+npm start
+```
+This will start the React app, and you can view it by navigating to http://localhost:3000 in your browser.
+
+## Usage
+The weather data is fetched using the OpenWeather API based on a specified city. The widget will display the current weather conditions for the city. The AQI (Air Quality Index) is displayed with color-coded levels, indicating the air quality in the area.
+
+## Customization
+You can change the city by modifying the cityid property in the widget script or updating the city prop when using the WeatherCard component.
+
+For example, to display weather for a different city, change the cityid:
+```bash
+cityid: 'CITY_ID', // Replace with the desired city ID
 ```
 
-2. Navigate to the project directory:
-  ```bash
-  cd weather-dashboard
-  ```
-
-3. Install dependencies:
-  ```bash
-  npm install
-  ```
-
-4. Start the app:
-  ```bash
-  npm start
-  ```
-The app will be available at http://localhost:3000.
-
-## Getting an API Key
-To get an API key from OpenWeatherMap:
-- Visit OpenWeatherMap.
-- Sign up and create an account.
-- After registering, you can find your API key on your account dashboard.
-
-Replace the API key in the App.js file with your own:
-```const API_KEY = 'YOUR_API_KEY';```
-
 ## Contribution
-If you want to contribute to this project, you can submit a pull request by adding new features or fixing bugs. Please create an issue before submitting any changes.
-- Fork this repository.
-- Create a new branch for your feature (git checkout -b your-feature).
-- Commit your changes (git commit -m 'Add new feature').
-- Push your branch to your fork (git push origin your-feature).
-- Open a pull request on GitHub.
+If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. For any issues or suggestions, please open an issue on the GitHub repository.
 
-Enjoy!
+-ikjoen
