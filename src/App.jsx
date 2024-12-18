@@ -33,7 +33,7 @@ const App = () => {
       // Fetch AQI jika koordinat tersedia
       if (weatherJson.coord) {
         const aqiResponse = await fetch(
-          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherJson.coord.lat}&lon=${weatherJson.coord.lon}&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherJson.coord.lat}&lon=${weatherJson.coord.lon}&appid=${API_KEY}`
         );
 
         if (!aqiResponse.ok) {
