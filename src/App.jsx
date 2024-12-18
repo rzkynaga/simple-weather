@@ -4,7 +4,7 @@ import WeatherCard from './components/WeatherCard';
 const API_KEY = '7c714bae5fcbb9546860f507e7ffaf20'; // Ganti dengan API key dari OpenWeatherMap
 
 const App = () => {
-  const [city, setCity] = useState('Jakarta');
+  const [city, setCity] = useState('Jambi');
   const [weatherData, setWeatherData] = useState(null);
   const [aqiData, setAqiData] = useState(null);
   const [error, setError] = useState(null);
@@ -80,6 +80,9 @@ const App = () => {
           aqi={aqiData}
         />
       )}
+      
+      {/* Widget OpenWeather */}
+      <div id="openweathermap-widget-15"></div>
     </div>
   );
 };

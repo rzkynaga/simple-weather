@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
   // Fungsi untuk menentukan level AQI
@@ -15,8 +15,35 @@ const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
   const aqiLevel = getAQILevel(aqi);
   const precipitation = current?.rain?.['1h'] ?? 'N/A';
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = '//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js';
+    script.async = true;
+    script.charset = 'utf-8';
+
+    // Menambahkan script ke body
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      // Pastikan window.myWidgetParam sudah ada sebelum digunakan
+      window.myWidgetParam = window.myWidgetParam || [];
+      window.myWidgetParam.push({
+        id: 15,
+        cityid: '1642858', // ID Kota yang Anda berikan
+        appid: '7c714bae5fcbb9546860f507e7ffaf20', // API key yang valid
+        units: 'metric',
+        containerid: 'openweathermap-widget-15', // ID elemen widget
+      });
+    };
+
+    // Cleanup script saat komponen di-unmount
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
-    <div className="w-full max-w-lg bg-gray-900 p-6 rounded-lg shadow-2xl text-gray-100">
+    <div className="w-full max-w-lg bg-gray-900 p-6 rounded-lg mb-8 shadow-2xl text-gray-100">
       {/* Judul Cuaca */}
       <h2 className="text-3xl font-semibold text-center mb-6">
         Cuaca di <span className="text-blue-400">{city}</span>
@@ -36,7 +63,6 @@ const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
         <div className="bg-gray-800 p-4 rounded-lg shadow-md">
           <p className="text-xl font-medium">Curah Hujan: {precipitation} mm</p>
         </div>
-
       </div>
 
       {/* Kualitas Udara */}
@@ -44,12 +70,13 @@ const WeatherCard = ({ city = 'Unknown', current = {}, aqi = null }) => {
         <p className="text-xl">
           Kualitas Udara:{' '}
           <span
-            className={`font-semibold ${aqiLevel === 'Good'
-              ? 'text-green-500'
-              : aqiLevel === 'Very Poor'
+            className={`font-semibold ${
+              aqiLevel === 'Good'
+                ? 'text-green-500'
+                : aqiLevel === 'Very Poor'
                 ? 'text-red-500'
                 : 'text-yellow-500'
-              }`}
+            }`}
           >
             {aqiLevel}
           </span>
